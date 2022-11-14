@@ -1,0 +1,65 @@
+ion-content {
+  --background: var(--ion-color-tertiary-tint);
+  position: relative;
+  ion-toolbar {
+    --background: transparent;
+    box-shadow: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    header {
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h2 {
+        font-weight: 500;
+        color: var(--ion-color-light);
+      }
+
+      svg {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    .login-form {
+      background-color: white;
+      padding: 2.5em 0;
+
+      width: 100%;
+
+      .login-button {
+        --background: var(--ion-color-tertiary-tint);
+      }
+
+      .show {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding-block: 0.5em;
+      }
+    }
+  }
+}
+
+.ion-margin-vertical {
+  margin-top: 12em;
+}
+
+.input-capitalize {
+  text-transform: capitalize;
+}

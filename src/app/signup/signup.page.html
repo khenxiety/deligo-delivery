@@ -1,0 +1,133 @@
+<ion-content [fullscreen]="true">
+  <ion-toolbar>
+    <ion-buttons class="ion-no-border" slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div class="container">
+    <header class="ion-padding">
+      <h2>Join Deligo Delivery</h2>
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+          fill="#ffffff"
+          fill-opacity="1"
+          d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg>
+    </header>
+
+    <div class="login-form">
+      <h4 style="text-align: center">Sign Up</h4>
+      <ion-grid class="ion-padding">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Fullname</ion-label>
+              <ion-input
+                type="test"
+                class="input-capitalize"
+                name="name"
+                [(ngModel)]="name"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Username</ion-label>
+              <ion-input
+                type="text"
+                name="username"
+                [(ngModel)]="username"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Location</ion-label>
+              <ion-input
+                type="text"
+                name="location"
+                [(ngModel)]="location"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input
+                type="text"
+                name="email"
+                [(ngModel)]="email"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-select
+                placeholder="Select role"
+                name="name"
+                [(ngModel)]="role"
+              >
+                <ion-select-option value="customer">Customer</ion-select-option>
+                <ion-select-option value="owner">Car Owner</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input
+                #input
+                type="password"
+                name="password"
+                [(ngModel)]="password"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Confirm Password</ion-label>
+              <ion-input
+                #confirm
+                type="password"
+                name="cpass"
+                [(ngModel)]="cpass"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="show">
+              <ion-checkbox (click)="showPass(input,confirm)"></ion-checkbox>
+              <ion-label>Show Password</ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button class="login-button" expand="block" (click)="signUp()"
+              >Signup</ion-button
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

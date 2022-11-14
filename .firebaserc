@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "deligo-ecommerce-6eefc": {
+      "hosting": {
+        "app": [
+          "deligo-ecommerce-6eefc"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "deligo-ecommerce-6eefc"
+  }
+}
