@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="ion-no-border" slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Order number {{paramsId}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="">
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <h4 class="ion-margin-bottom">Order {{paramsId}}</h4>
+          <p><strong>PHP : </strong>{{order?.total_price}}</p>
+          <p><strong>Payment Method: </strong>{{order?.gateway}}</p>
+          <p><strong>Name: </strong>{{order?.billing_address.name}}</p>
+
+          <p><strong>Location: </strong>{{order?.billing_address.address1}}</p>
+          <p>
+            <strong>Order Status: </strong
+            ><a href="{{order?.order_status_url}}">Shopify Url</a>
+          </p>
+
+          <ion-button>Close Order</ion-button>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <header class="ion-padding"><h5>Items</h5></header>
+
+      <ion-card *ngFor="let orders of order?.line_items">
+        <!-- <img
+          alt="Silhouette of mountains"
+          src="https://ionicframework.com/docs/img/demos/card-media.png"
+        /> -->
+        <ion-card-header>
+          <ion-card-title>{{orders?.title}}</ion-card-title>
+          <ion-card-subtitle
+            >Product Variant: {{orders?.variant_title}}</ion-card-subtitle
+          >
+          <ion-card-subtitle>Vendor: {{orders?.vendor}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content
+          ><h4>
+            Price: {{orders?.price_set?.presentment_money.currency_code}}
+            {{orders?.price_set?.presentment_money.amount}}
+          </h4>
+          <h4>Quantity: {{orders?.quantity}}</h4>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

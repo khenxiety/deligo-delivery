@@ -24,12 +24,25 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Fullname</ion-label>
+              <ion-label position="floating">Firstname</ion-label>
               <ion-input
                 type="test"
                 class="input-capitalize"
                 name="name"
-                [(ngModel)]="name"
+                [(ngModel)]="firstName"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Lastname</ion-label>
+              <ion-input
+                type="test"
+                class="input-capitalize"
+                name="name"
+                [(ngModel)]="lastName"
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -49,11 +62,23 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Location</ion-label>
+              <ion-label position="floating">Address</ion-label>
               <ion-input
                 type="text"
                 name="location"
-                [(ngModel)]="location"
+                [(ngModel)]="address"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Contact</ion-label>
+              <ion-input
+                type="text"
+                name="location"
+                [(ngModel)]="contact"
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -74,14 +99,29 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-select
-                placeholder="Select role"
-                name="name"
-                [(ngModel)]="role"
+              <ion-label>Picture</ion-label>
+
+              <input #pictureUpload type="file" hidden />
+              <ion-button (click)="pictureUpload.click()"
+                >Upload Picture</ion-button
               >
-                <ion-select-option value="customer">Customer</ion-select-option>
-                <ion-select-option value="owner">Car Owner</ion-select-option>
-              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Driver's License (required)</ion-label>
+
+              <input
+                #licenseUpload
+                type="file"
+                hidden
+                (change)="uploadFile($event)"
+              />
+              <ion-button (click)="licenseUpload.click()"
+                >Upload License</ion-button
+              >
             </ion-item>
           </ion-col>
         </ion-row>
@@ -107,7 +147,7 @@
                 #confirm
                 type="password"
                 name="cpass"
-                [(ngModel)]="cpass"
+                [(ngModel)]="cpassword"
               ></ion-input>
             </ion-item>
           </ion-col>

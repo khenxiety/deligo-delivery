@@ -5,11 +5,26 @@
 </ion-header>
 
 <ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card *ngFor="let order of orders">
+    <ion-card-header>
+      <ion-card-title>{{order?.id}}</ion-card-title>
+      <ion-card-subtitle>Order from: {{order?.email}}</ion-card-subtitle>
+      <ion-card-subtitle
+        >Assigned to: {{order?.assignedDelivery ?
+        order?.assignedDelivery:'Available'}}</ion-card-subtitle
+      >
+    </ion-card-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more,
+      nothing less.
+    </ion-card-content>
+
+    <ion-button fill="clear" [routerLink]="['/view-order/',order.id]"
+      >View Order</ion-button
+    >
+    <ion-button fill="clear" *ngIf="order?.assignedDelivery=='Available'"
+      >Get Order</ion-button
+    >
+  </ion-card>
 </ion-content>

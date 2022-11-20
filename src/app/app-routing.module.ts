@@ -29,6 +29,13 @@ const routes: Routes = [
     redirectTo: "home",
     pathMatch: "full",
   },
+  {
+    path: "view-order/:id",
+    loadChildren: () =>
+      import("./pages/view-order/view-order.module").then(
+        (m) => m.ViewOrderPageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [
