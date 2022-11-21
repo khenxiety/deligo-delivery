@@ -1,39 +1,65 @@
-import { Component } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular';
-import { UserPhoto, PhotoService } from '../services/photo.service';
+import { Component } from "@angular/core";
+import {
+  collection,
+  Firestore,
+  getDocs,
+  query,
+  where,
+} from "@angular/fire/firestore";
+import { ActionSheetController } from "@ionic/angular";
+import { UserPhoto, PhotoService } from "../services/photo.service";
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  selector: "app-tab2",
+  templateUrl: "tab2.page.html",
+  styleUrls: ["tab2.page.scss"],
 })
 export class Tab2Page {
+  orders: Array<any> = [];
+  userProfile: any;
 
-  constructor(public photoService: PhotoService, public actionSheetController: ActionSheetController) {}
+  constructor(private firestore: Firestore) {
+    let data = JSON.parse(localStorage.getItem("user"));
 
-  async ngOnInit() {
-    await this.photoService.loadSaved();
+    this.userProfile = data;
+    console.log(this.userProfile);
   }
 
-  public async showActionSheet(photo: UserPhoto, position: number) {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Photos',
-      buttons: [{
-        text: 'Delete',
-        role: 'destructive',
-        icon: 'trash',
-        handler: () => {
-          this.photoService.deletePicture(photo, position);
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          // Nothing to do, action sheet is automatically closed
-         }
-      }]
+  ngOnInit() {
+    const ordersDb = collection(this.firestore, "orders");
+    const q = query(
+      ordersDb,
+      where("assignedDelivery", "==", this.userProfile.userData.email)
+    );
+
+    getDocs(q).then((res) => {
+      this.orders = [
+        ...res.docs.map((doc: any) => {
+          return { ...doc.data(), id: doc.id };
+        }),
+      ];
     });
-    await actionSheet.present();
   }
+
+  // public async showActionSheet(photo: UserPhoto, position: number) {
+  //   const actionSheet = await this.actionSheetController.create({
+  //     header: 'Photos',
+  //     buttons: [{
+  //       text: 'Delete',
+  //       role: 'destructive',
+  //       icon: 'trash',
+  //       handler: () => {
+  //         this.photoService.deletePicture(photo, position);
+  //       }
+  //     }, {
+  //       text: 'Cancel',
+  //       icon: 'close',
+  //       role: 'cancel',
+  //       handler: () => {
+  //         // Nothing to do, action sheet is automatically closed
+  //        }
+  //     }]
+  //   });
+  //   await actionSheet.present();
+  // }
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import {
   collection,
+  doc,
   Firestore,
   getDocs,
   query,
+  updateDoc,
   where,
 } from "@angular/fire/firestore";
 
@@ -15,13 +17,20 @@ import {
 export class Tab1Page implements OnInit {
   public orders: Array<any> = [];
 
-  constructor(private firestore: Firestore) {}
+  userProfile: any;
+
+  constructor(private firestore: Firestore) {
+    let data = JSON.parse(localStorage.getItem("user"));
+
+    this.userProfile = data;
+    console.log(this.userProfile);
+  }
 
   ngOnInit(): void {
     const ordersDb = collection(this.firestore, "orders");
     const q = query(ordersDb, where("assignedDelivery", "==", "Available"));
 
-    getDocs(ordersDb).then((res) => {
+    getDocs(q).then((res) => {
       this.orders = [
         ...res.docs.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
@@ -29,6 +38,20 @@ export class Tab1Page implements OnInit {
       ];
 
       console.log(this.orders);
+    });
+  }
+
+  getOrder(id: any) {
+    const getOrderDb = doc(this.firestore, "orders", id);
+
+    const data = {
+      assignedDelivery: this.userProfile.userData.email,
+    };
+
+    updateDoc(getOrderDb, data).then((res) => {
+      console.log(res);
+
+      this.ngOnInit();
     });
   }
 }

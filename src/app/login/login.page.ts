@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { signInWithEmailAndPassword, Auth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import { ToastController } from "@ionic/angular";
 
@@ -11,7 +12,11 @@ export class LoginPage implements OnInit {
   email: any;
   password: any;
 
-  constructor(private router: Router, private toast: ToastController) {}
+  constructor(
+    private router: Router,
+    private toast: ToastController,
+    private auth: Auth
+  ) {}
 
   ngOnInit() {}
   async presentToast(message) {
@@ -27,15 +32,15 @@ export class LoginPage implements OnInit {
   }
 
   validate() {
-    console.log("validate");
+    // console.log("validate");
 
-    this.router.navigate(["/dashboard"]);
+    // this.router.navigate(["/dashboard"]);
 
     if (this.email == "" || this.password == "") {
       this.presentToast("Please fill all the fields");
       this.clear();
     } else {
-      // this.signIn();
+      this.signIn();
     }
   }
 
@@ -43,21 +48,26 @@ export class LoginPage implements OnInit {
     input.type = input.type === "password" ? "text" : "password";
   }
 
-  // signIn(){
-  //   signInWithEmailAndPassword(this.auth,this.email,this.password).then(res=>{
-  //     console.log(res);
-  //     this.clear()
+  signIn() {
+    signInWithEmailAndPassword(this.auth, this.email, this.password)
+      .then((res) => {
+        console.log(res);
+        this.clear();
 
-  //     localStorage.setItem("user",JSON.stringify(res));
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            userData: res.user.providerData[0],
+            id: res.user.uid,
+          })
+        );
 
-  //     this.router.navigate(['/car-feed']);
-  //     this.presentToast("Login Successful");
-
-  //   }).catch(err=>{
-  //     console.log(err);
-  //     this.presentToast("Login Failed");
-
-  //   })
-
-  // }
+        this.router.navigate(["/dashboard"]);
+        this.presentToast("Login Successful");
+      })
+      .catch((err) => {
+        console.log(err);
+        this.presentToast("Login Failed");
+      });
+  }
 }

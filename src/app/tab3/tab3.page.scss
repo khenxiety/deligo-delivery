@@ -1,3 +1,58 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+header {
+  position: relative;
+
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid var(--ion-color-light);
+
+  .img-container {
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    place-items: center;
+
+    ion-avatar {
+      height: 100%;
+      width: 100%;
+
+      img {
+        height: 100%;
+        width: 100%;
+        border: 5px solid #fff;
+      }
+    }
+  }
+
+  .background,
+  .header-text {
+    margin-top: 2em;
+    height: 50%;
+  }
+
+  .background {
+    background-color: var(--ion-color-purple);
+  }
+
+  .header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 35px;
+    line-height: 20px;
+    background-color: #fff;
+
+    h1,
+    p {
+      margin: 0;
+    }
+  }
+}

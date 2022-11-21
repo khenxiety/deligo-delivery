@@ -15,15 +15,18 @@
       >
     </ion-card-header>
 
-    <ion-card-content>
+    <!-- <ion-card-content>
       Here's a small text description for the card content. Nothing more,
       nothing less.
-    </ion-card-content>
+    </ion-card-content> -->
 
     <ion-button fill="clear" [routerLink]="['/view-order/',order.id]"
       >View Order</ion-button
     >
-    <ion-button fill="clear" *ngIf="order?.assignedDelivery=='Available'"
+    <ion-button
+      fill="clear"
+      *ngIf="order?.assignedDelivery=='Available'"
+      (click)="getOrder(order.id)"
       >Get Order</ion-button
     >
   </ion-card>

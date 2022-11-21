@@ -125,6 +125,11 @@ export class SignupPage implements OnInit {
         });
         let data = {
           address: this.address,
+          email: this.email,
+          password: this.password,
+          location: this.address,
+          username: this.username,
+
           contact: this.contact,
           firstName: this.firstName,
           franchiseUrl: this.franchiseUrl,
