@@ -17,6 +17,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ViewOrderPage implements OnInit {
   public order: any;
+  public getUserData: any;
 
   paramsId: string;
   constructor(
@@ -24,18 +25,16 @@ export class ViewOrderPage implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.paramsId = this.activatedRoute.snapshot.params["id"];
+    this.getUserData = JSON.parse(localStorage.getItem("user"));
   }
 
   ngOnInit(): void {
     if (!this.paramsId) return;
-    console.log(this.paramsId);
 
     const ordersDb = doc(this.firestore, "orders/", this.paramsId);
 
     getDoc(ordersDb).then((res) => {
       this.order = res.data();
-
-      console.log(this.order);
     });
 
     this.getOrder();

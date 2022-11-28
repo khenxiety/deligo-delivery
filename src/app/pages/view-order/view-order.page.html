@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons class="ion-no-border" slot="start">
-      <ion-back-button defaultHref="login"></ion-back-button>
+      <ion-back-button defaultHref="dashboard"></ion-back-button>
     </ion-buttons>
     <ion-title>Order number {{paramsId}}</ion-title>
   </ion-toolbar>
@@ -10,21 +10,44 @@
 <ion-content class="">
   <ion-row>
     <ion-col>
-      <ion-card>
+      <ion-card style="width: 100%">
         <ion-card-header>
           <h4 class="ion-margin-bottom">Order {{paramsId}}</h4>
-          <p><strong>PHP : </strong>{{order?.total_price}}</p>
+          <p>
+            <strong>Total: </strong>{{order?.currency}} {{order?.total_price}}
+          </p>
           <p><strong>Payment Method: </strong>{{order?.gateway}}</p>
           <p><strong>Name: </strong>{{order?.billing_address.name}}</p>
 
           <p><strong>Location: </strong>{{order?.billing_address.address1}}</p>
           <p>
-            <strong>Order Status: </strong
+            <strong>Order Url: </strong
             ><a href="{{order?.order_status_url}}">Shopify Url</a>
           </p>
 
-          <ion-button>Close Order</ion-button>
+          <!-- <ion-button
+            *ngIf="getUserData?.userData?.email===order?.assignedDelivery"
+            >Close Order</ion-button
+          > -->
         </ion-card-header>
+        <ion-card-content>
+          <ion-list
+            *ngIf="getUserData?.userData?.email===order?.assignedDelivery"
+          >
+            <ion-item>
+              <ion-label>Order Status</ion-label>
+              <ion-select placeholder="Status">
+                <ion-select-option value="cancelled"
+                  >Cancelled</ion-select-option
+                >
+                <ion-select-option value="to-ship">To Ship</ion-select-option>
+                <ion-select-option value="delivered"
+                  >Delivered</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+          </ion-list></ion-card-content
+        >
       </ion-card>
     </ion-col>
   </ion-row>
@@ -33,10 +56,6 @@
       <header class="ion-padding"><h5>Items</h5></header>
 
       <ion-card *ngFor="let orders of order?.line_items">
-        <!-- <img
-          alt="Silhouette of mountains"
-          src="https://ionicframework.com/docs/img/demos/card-media.png"
-        /> -->
         <ion-card-header>
           <ion-card-title>{{orders?.title}}</ion-card-title>
           <ion-card-subtitle

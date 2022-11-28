@@ -6,6 +6,8 @@ import {
   query,
   where,
 } from "@angular/fire/firestore";
+import { Router } from "@angular/router";
+import { ToastController } from "@ionic/angular";
 
 @Component({
   selector: "app-tab3",
@@ -14,22 +16,26 @@ import {
 })
 export class Tab3Page implements OnInit {
   getUserData: any;
-
   email: any;
-
   userData: Array<any> = [];
 
-  constructor(private firestore: Firestore) {
+  constructor(
+    private firestore: Firestore,
+    private router: Router,
+    private toast: ToastController
+  ) {
     this.getUserData = JSON.parse(localStorage.getItem("user"));
-    console.log(this.getUserData);
-
     this.email = this.getUserData.userData.email;
-    console.log(this.email);
   }
-
+  async presentToast(message) {
+    const toast = await this.toast.create({
+      message: message,
+      duration: 2000,
+    });
+    toast.present();
+  }
   ngOnInit(): void {
     const userDb = collection(this.firestore, "users");
-
     const q = query(userDb, where("email", "==", this.email));
 
     getDocs(q).then((res) => {
@@ -38,8 +44,12 @@ export class Tab3Page implements OnInit {
           return { ...doc.data(), id: doc.id };
         }),
       ];
-
-      console.log(this.userData);
     });
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.presentToast("Logout Successfully");
+    this.router.navigate(["/login"]);
   }
 }
