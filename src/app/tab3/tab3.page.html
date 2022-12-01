@@ -5,10 +5,8 @@
 <ion-content [fullscreen]="true">
   <header>
     <div class="img-container">
-      <ion-avatar style="height: auto; width: 40%">
-        <img
-          src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-        />
+      <ion-avatar style="height: 150px; width: 40%">
+        <img src="{{userData[0]?.imageUrl}}" />
       </ion-avatar>
     </div>
 
@@ -33,6 +31,14 @@
       <ion-label color="dark" style="text-transform: capitalize"
         >{{userData[0]?.contact}}</ion-label
       >
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="document"></ion-icon>
+      <ion-label color="dark" style="text-transform: capitalize">
+        <a href="{{userData[0]?.driversLicense}}" target="_blank"
+          >My Driver's License</a
+        >
+      </ion-label>
     </ion-item>
   </ion-list>
 

@@ -1,11 +1,13 @@
 import { Component } from "@angular/core";
 import {
   collection,
+  collectionSnapshots,
   Firestore,
   getDocs,
   query,
   where,
 } from "@angular/fire/firestore";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-tab2",
@@ -24,15 +26,19 @@ export class Tab2Page {
   }
 
   ngOnInit() {
+    this.getOrders();
+  }
+
+  getOrders() {
     const ordersDb = collection(this.firestore, "orders");
     const q = query(
       ordersDb,
       where("assignedDelivery", "==", this.userProfile.userData.email)
     );
 
-    getDocs(q).then((res) => {
+    collectionSnapshots(q).subscribe((res) => {
       this.orders = [
-        ...res.docs.map((doc: any) => {
+        ...res.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),
       ];

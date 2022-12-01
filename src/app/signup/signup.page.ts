@@ -36,7 +36,6 @@ export class SignupPage implements OnInit {
   public contact: string = "";
   public firstName: string = "";
   public username: string = "";
-
   public franchiseUrl: string = "";
   public imageUrl: string = "";
   public lastName: string = "";
@@ -45,6 +44,7 @@ export class SignupPage implements OnInit {
   public email: string = "";
   public password: string = "";
   public cpassword: string = "";
+  fileUrl: string = "";
 
   public fileImage: string;
   fileRestriction: Array<any> = [
@@ -71,6 +71,7 @@ export class SignupPage implements OnInit {
     console.log(event.target.files[0]);
     if (this.fileRestriction.includes(event.target.files[0].type)) {
       this.file = event.target.files[0];
+      this.uploadFile(event);
       this.isFileValid = true;
     } else {
       this.isFileValid = false;
@@ -81,6 +82,8 @@ export class SignupPage implements OnInit {
     console.log(event.target.files[0]);
     if (this.fileRestrictionImage.includes(event.target.files[0].type)) {
       this.fileImage = event.target.files[0];
+      this.uploadImage(event);
+
       this.isFileValid = true;
     } else {
       this.isFileValid = false;
@@ -88,10 +91,9 @@ export class SignupPage implements OnInit {
   }
 
   uploadFile(event: any) {
-    console.log(event.target.files[0]);
     const file = event.target.files[0];
-    const storageRef = ref(this.storage, `documents/${file}`);
-    const upload = uploadBytesResumable(storageRef, this.file);
+    const storageRef = ref(this.storage, `documents/${file.name}`);
+    const upload = uploadBytesResumable(storageRef, file);
 
     upload.on(
       "state_changed",
@@ -102,7 +104,62 @@ export class SignupPage implements OnInit {
 
         if (progress === 100) {
           setTimeout(() => {
-            getDownloadURL(upload.snapshot.ref).then((url) => {});
+            getDownloadURL(upload.snapshot.ref).then((url) => {
+              console.log(url);
+              this.fileUrl = url;
+              this.toast
+                .create({
+                  message: "File Uploaded",
+                  duration: 3000,
+                  color: "success",
+                })
+                .then((res) => {
+                  res.present();
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            });
+          }, 2000);
+        }
+      },
+      () => {
+        getDownloadURL(upload.snapshot.ref).then((url) => {
+          console.log("dlurl", url);
+        });
+      }
+    );
+  }
+  uploadImage(event: any) {
+    const file = event.target.files[0];
+    const storageRef = ref(this.storage, `images/${file.name}`);
+    const upload = uploadBytesResumable(storageRef, file);
+
+    upload.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(progress);
+
+        if (progress === 100) {
+          setTimeout(() => {
+            getDownloadURL(upload.snapshot.ref).then((url) => {
+              console.log(url);
+              this.imageUrl = url;
+              this.toast
+                .create({
+                  message: "File Uploaded",
+                  duration: 3000,
+                  color: "success",
+                })
+                .then((res) => {
+                  res.present();
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            });
           }, 2000);
         }
       },
@@ -132,7 +189,7 @@ export class SignupPage implements OnInit {
 
           contact: this.contact,
           firstName: this.firstName,
-          franchiseUrl: this.franchiseUrl,
+          driversLicense: this.fileUrl,
           imageUrl: this.imageUrl,
           lastName: this.lastName,
           middleName: this.middleName,

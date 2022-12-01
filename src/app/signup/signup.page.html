@@ -101,7 +101,12 @@
             <ion-item>
               <ion-label>Picture</ion-label>
 
-              <input #pictureUpload type="file" hidden />
+              <input
+                #pictureUpload
+                type="file"
+                hidden
+                (change)="fileChangeImages($event)"
+              />
               <ion-button (click)="pictureUpload.click()"
                 >Upload Picture</ion-button
               >
@@ -117,7 +122,7 @@
                 #licenseUpload
                 type="file"
                 hidden
-                (change)="uploadFile($event)"
+                (change)="fileChangeDocuments($event)"
               />
               <ion-button (click)="licenseUpload.click()"
                 >Upload License</ion-button

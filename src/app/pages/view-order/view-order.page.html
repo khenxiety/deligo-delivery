@@ -36,7 +36,26 @@
           >
             <ion-item>
               <ion-label>Order Status</ion-label>
-              <ion-select placeholder="Status">
+
+              <!-- <select
+          #status
+          class="form-select"
+          style="max-width: 120px"
+          aria-label="Default select example"
+          hidden
+          (change)="statusOnChange()"
+        >
+          <option value="pending">Unverified</option>
+          <option value="approved">Verified</option>
+        </select> -->
+              <ion-select
+                #statusValue
+                placeholder="Status"
+                (ngModelChange)="statusOnChange(statusValue.value, paramsId)"
+                name="status"
+                [(ngModel)]="status"
+                [value]="order?.order_status"
+              >
                 <ion-select-option value="cancelled"
                   >Cancelled</ion-select-option
                 >
