@@ -10,10 +10,21 @@
       <ion-card *ngFor="let order of orders">
         <ion-card-header>
           <ion-card-title>{{order?.id}}</ion-card-title>
-          <ion-card-subtitle>Order from: {{order?.email}}</ion-card-subtitle>
           <ion-card-subtitle
-            >Assigned to: {{order?.assignedDelivery ?
-            order?.assignedDelivery:'Available'}}</ion-card-subtitle
+            >Order from: <strong>{{order?.email}}</strong></ion-card-subtitle
+          >
+          <ion-card-subtitle
+            >Assigned to:
+            <strong
+              >{{order?.assignedDelivery ?
+              order?.assignedDelivery:'Available'}}</strong
+            ></ion-card-subtitle
+          >
+          <ion-card-subtitle
+            >Order Status:
+            <strong
+              >{{order?.order_status.replace("-",' ')}}</strong
+            ></ion-card-subtitle
           >
         </ion-card-header>
 
@@ -25,7 +36,12 @@
         <ion-button fill="clear" [routerLink]="['/view-order/',order.id]"
           >View Order</ion-button
         >
-        <ion-button fill="clear">Mark as Delivered</ion-button>
+        <ion-button
+          fill="clear"
+          [disabled]="order.order_status==='delivered'"
+          (click)="updateStatus('delivered',order.id)"
+          >Mark as Delivered</ion-button
+        >
       </ion-card>
     </ion-row>
   </ion-grid>

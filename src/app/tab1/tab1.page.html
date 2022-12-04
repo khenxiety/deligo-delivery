@@ -5,29 +5,34 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let order of orders">
-    <ion-card-header>
-      <ion-card-title>{{order?.id}}</ion-card-title>
-      <ion-card-subtitle>Order from: {{order?.email}}</ion-card-subtitle>
-      <ion-card-subtitle
-        >Assigned to: {{order?.assignedDelivery ?
-        order?.assignedDelivery:'Available'}}</ion-card-subtitle
-      >
-    </ion-card-header>
+  <div class="center ion-padding" *ngIf="orders.length ==0">
+    <strong>No Orders yet</strong>
+  </div>
+  <div class="orders" *ngIf="orders.length !=0">
+    <ion-card *ngFor="let order of orders">
+      <ion-card-header>
+        <ion-card-title>{{order?.id}}</ion-card-title>
+        <ion-card-subtitle>Order from: {{order?.email}}</ion-card-subtitle>
+        <ion-card-subtitle
+          >Assigned to: {{order?.assignedDelivery ?
+          order?.assignedDelivery:'Available'}}</ion-card-subtitle
+        >
+      </ion-card-header>
 
-    <!-- <ion-card-content>
+      <!-- <ion-card-content>
       Here's a small text description for the card content. Nothing more,
       nothing less.
     </ion-card-content> -->
 
-    <ion-button fill="clear" [routerLink]="['/view-order/',order.id]"
-      >View Order</ion-button
-    >
-    <ion-button
-      fill="clear"
-      *ngIf="order?.assignedDelivery=='Available'"
-      (click)="getOrder(order.id)"
-      >Get Order</ion-button
-    >
-  </ion-card>
+      <ion-button fill="clear" [routerLink]="['/view-order/',order.id]"
+        >View Order</ion-button
+      >
+      <ion-button
+        fill="clear"
+        *ngIf="order?.assignedDelivery=='Available'"
+        (click)="getOrder(order.id)"
+        >Get Order</ion-button
+      >
+    </ion-card>
+  </div>
 </ion-content>

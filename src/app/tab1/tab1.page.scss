@@ -1,3 +1,13 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+.center {
+  width: 100%;
+  display: grid;
+  place-items: center;
+
+  strong {
+    color: #424242;
+  }
+}

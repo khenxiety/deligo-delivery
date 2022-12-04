@@ -54,7 +54,9 @@ export class SignupPage implements OnInit {
     "application/vnd.openxmlformats-officedocument.presentationml.presentation",
   ];
   fileRestrictionImage: Array<any> = ["image/jpeg", "image/png"];
-  isFileValid: boolean = true;
+  isFileValid: boolean = false;
+  isImageValid: boolean = false;
+
   file!: File;
 
   constructor(
@@ -84,9 +86,9 @@ export class SignupPage implements OnInit {
       this.fileImage = event.target.files[0];
       this.uploadImage(event);
 
-      this.isFileValid = true;
+      this.isImageValid = true;
     } else {
-      this.isFileValid = false;
+      this.isImageValid = false;
     }
   }
 

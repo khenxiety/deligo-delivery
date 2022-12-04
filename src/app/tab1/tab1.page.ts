@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {
   collection,
+  collectionSnapshots,
   doc,
   Firestore,
   getDocs,
@@ -27,12 +28,16 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getOrders();
+  }
+
+  getOrders() {
     const ordersDb = collection(this.firestore, "orders");
     const q = query(ordersDb, where("assignedDelivery", "==", "Available"));
 
-    getDocs(q).then((res) => {
+    collectionSnapshots(q).subscribe((res) => {
       this.orders = [
-        ...res.docs.map((doc: any) => {
+        ...res.map((doc: any) => {
           return { ...doc.data(), id: doc.id };
         }),
       ];
@@ -46,6 +51,7 @@ export class Tab1Page implements OnInit {
 
     const data = {
       assignedDelivery: this.userProfile.userData.email,
+      order_status: "to-ship",
     };
 
     updateDoc(getOrderDb, data).then((res) => {
