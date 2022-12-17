@@ -4,3 +4,10 @@ ion-content ion-toolbar {
 ion-card-subtitle {
   text-transform: capitalize;
 }
+.ion-header{
+  --background: #088413;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}

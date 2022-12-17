@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="ion-header">
     <ion-buttons class="ion-no-border" slot="start">
       <ion-back-button defaultHref="dashboard"></ion-back-button>
     </ion-buttons>
@@ -10,7 +10,7 @@
 <ion-content class="">
   <ion-row>
     <ion-col>
-      <ion-card style="width: 100%">
+      <ion-card>
         <ion-card-header>
           <h4 class="ion-margin-bottom">Order {{paramsId}}</h4>
           <p>
@@ -70,27 +70,24 @@
       </ion-card>
     </ion-col>
   </ion-row>
-  <ion-row>
-    <ion-col>
-      <header class="ion-padding"><h5>Items</h5></header>
+  <header>
+    <h5><strong>Items</strong></h5>
+  </header>
+  <ion-card *ngFor="let orders of order?.line_items">
+    <ion-card-header>
+      <ion-card-title>{{orders?.title}}</ion-card-title>
+      <ion-card-subtitle
+        >Product Variant: {{orders?.variant_title}}</ion-card-subtitle
+      >
+      <ion-card-subtitle>Vendor: {{orders?.vendor}}</ion-card-subtitle>
+    </ion-card-header>
 
-      <ion-card *ngFor="let orders of order?.line_items">
-        <ion-card-header>
-          <ion-card-title>{{orders?.title}}</ion-card-title>
-          <ion-card-subtitle
-            >Product Variant: {{orders?.variant_title}}</ion-card-subtitle
-          >
-          <ion-card-subtitle>Vendor: {{orders?.vendor}}</ion-card-subtitle>
-        </ion-card-header>
-
-        <ion-card-content
-          ><h4>
-            Price: {{orders?.price_set?.presentment_money.currency_code}}
-            {{orders?.price_set?.presentment_money.amount}}
-          </h4>
-          <h4>Quantity: {{orders?.quantity}}</h4>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
+    <ion-card-content
+      ><h4>
+        Price: {{orders?.price_set?.presentment_money.currency_code}}
+        {{orders?.price_set?.presentment_money.amount}}
+      </h4>
+      <h4>Quantity: {{orders?.quantity}}</h4>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -1,50 +1,48 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> My Orders </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-grid>
+  <ion-card class="ion-header ion-padding">
     <ion-row>
-      <ion-card *ngFor="let order of orders">
-        <ion-card-header>
-          <ion-card-title>{{order?.id}}</ion-card-title>
-          <ion-card-subtitle
-            >Order from: <strong>{{order?.email}}</strong></ion-card-subtitle
-          >
-          <ion-card-subtitle
-            >Assigned to:
-            <strong
-              >{{order?.assignedDelivery ?
-              order?.assignedDelivery:'Available'}}</strong
-            ></ion-card-subtitle
-          >
-          <ion-card-subtitle
-            >Order Status:
-            <strong
-              >{{order?.order_status.replace("-",' ')}}</strong
-            ></ion-card-subtitle
-          >
-        </ion-card-header>
+      <ion-col>
+        <h3>My Orders</h3>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
-        <!-- <ion-card-content>
+  <ion-card *ngFor="let order of orders">
+    <ion-card-header>
+      <ion-card-title>{{order?.id}}</ion-card-title>
+      <ion-card-subtitle
+        >Order from: <strong>{{order?.email}}</strong></ion-card-subtitle
+      >
+      <ion-card-subtitle
+        >Assigned to:
+        <strong
+          >{{order?.assignedDelivery ?
+          order?.assignedDelivery:'Available'}}</strong
+        ></ion-card-subtitle
+      >
+      <ion-card-subtitle
+        >Order Status:
+        <strong
+          >{{order?.order_status.replace("-",' ')}}</strong
+        ></ion-card-subtitle
+      >
+    </ion-card-header>
+
+    <!-- <ion-card-content>
           Here's a small text description for the card content. Nothing more,
           nothing less.
         </ion-card-content> -->
 
-        <ion-button fill="clear" [routerLink]="['/view-order/',order.id]"
-          >View Order</ion-button
-        >
-        <ion-button
-          fill="clear"
-          [disabled]="order.order_status==='delivered'"
-          (click)="updateStatus('delivered',order.id)"
-          >Mark as Delivered</ion-button
-        >
-      </ion-card>
-    </ion-row>
-  </ion-grid>
+    <ion-button fill="clear" [routerLink]="['/view-order/',order.id]"
+      >View Order</ion-button
+    >
+    <ion-button
+      fill="clear"
+      [disabled]="order.order_status==='delivered'"
+      (click)="updateStatus('delivered',order.id)"
+      >Mark as Delivered</ion-button
+    >
+  </ion-card>
 
   <!-- <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)="photoService.addNewToGallery()">

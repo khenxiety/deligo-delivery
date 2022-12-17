@@ -1,7 +1,20 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
-
+ion-header ion-toolbar{
+  --background: #088413;
+  color: white;
+}
+.ion-header{
+  --background: #088413;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+ion-content{
+  --background: rgb(243, 243, 243);
+}
 .center {
   width: 100%;
   display: grid;

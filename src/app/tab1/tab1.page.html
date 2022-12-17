@@ -1,10 +1,23 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Available Orders </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
+  <ion-card class="ion-header ion-padding">
+    <ion-row>
+      <ion-col>
+        <h3>Available Orders</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h5>{{userProfile?.userData.displayName}}</h5>
+        <h6>{{userProfile?.userData.email}}</h6>
+      </ion-col>
+    </ion-row>
+  </ion-card>
   <div class="center ion-padding" *ngIf="orders.length ==0">
     <strong>No Orders yet</strong>
   </div>
@@ -12,27 +25,28 @@
     <ion-card *ngFor="let order of orders">
       <ion-card-header>
         <ion-card-title>{{order?.id}}</ion-card-title>
-        <ion-card-subtitle>Order from: {{order?.email}}</ion-card-subtitle>
         <ion-card-subtitle
-          >Assigned to: {{order?.assignedDelivery ?
-          order?.assignedDelivery:'Available'}}</ion-card-subtitle
+          >Order from: <strong>{{order?.email}}</strong>
+        </ion-card-subtitle>
+        <ion-card-subtitle
+          >Assigned to:
+          <strong
+            >{{order?.assignedDelivery ?
+            order?.assignedDelivery:'Available'}}</strong
+          ></ion-card-subtitle
         >
       </ion-card-header>
 
-      <!-- <ion-card-content>
-      Here's a small text description for the card content. Nothing more,
-      nothing less.
-    </ion-card-content> -->
-
-      <ion-button fill="clear" [routerLink]="['/view-order/',order.id]"
-        >View Order</ion-button
-      >
-      <ion-button
-        fill="clear"
-        *ngIf="order?.assignedDelivery=='Available'"
-        (click)="getOrder(order.id)"
-        >Get Order</ion-button
-      >
+      <ion-card-content>
+        <ion-button [routerLink]="['/view-order/',order.id]"
+          >View Order</ion-button
+        >
+        <ion-button
+          *ngIf="order?.assignedDelivery=='Available'"
+          (click)="getOrder(order.id)"
+          >Get Order</ion-button
+        >
+      </ion-card-content>
     </ion-card>
   </div>
 </ion-content>
